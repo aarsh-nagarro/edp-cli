@@ -34,8 +34,20 @@ jobs:
           cd dist
           zip edp-cli-binaries.zip *
 
+    
       - name: Upload zipped binaries
         uses: actions/upload-artifact@v4
         with:
           name: edp-cli-all-platforms
           path: dist/edp-cli-binaries.zip
+
+      - name: Commit binaries to repo
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions"
+          git pull
+          mkdir -p binaries/${{ matrix.os }}
+          cp dist/* binaries/${{ matrix.os }}/
+          git add binaries/
+          git commit -m "Add compiled binaries for ${{ matrix.os }}"
+          git push
