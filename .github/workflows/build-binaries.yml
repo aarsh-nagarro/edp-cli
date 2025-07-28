@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install pkg
+        run: npm install -g pkg
+
       - name: Build all binaries with pkg
         run: |
           npx pkg ./bin/edp.js --out-dir dist --targets node18-linux-x64,node18-win-x64,node18-macos-x64
